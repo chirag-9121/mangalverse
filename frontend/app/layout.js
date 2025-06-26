@@ -1,14 +1,24 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Orbitron, Michroma } from "next/font/google";
+import localfont from "next/font/local";
 import "./globals.css";
+import Header from "@/components/header";
+import { Particles } from "@/components/magicui/particles";
+import { Meteors } from "@/components/magicui/meteors";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const conthrax = localfont({
+  src: "/../public/Conthrax-SemiBold.otf",
+  variable: "--font-conthrax",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const michroma = Michroma({
+  variable: "--font-michroma",
+  weight: "400",
+  // subsets: ["latin"],
+});
+
+const orbitron = Orbitron({
+  variable: "--font-orbitron",
+  // subsets: ["latin"],
 });
 
 export const metadata = {
@@ -20,9 +30,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${conthrax.variable} ${michroma.variable} ${orbitron.variable} font-[family-name:var(--font-michroma)] antialiased h-screen`}
       >
-        {children}
+        <div className="fixed overflow-hidden h-full w-full z-[-1]">
+          <Particles />
+        </div>
+        <div className="meteors-wrapper fixed overflow-hidden h-[500px] w-full z-[-2]">
+          <Meteors maxDuration={5} />
+        </div>
+        <main className="h-full py-2.5 px-4 sm:px-16 sm:py-5 lg:px-40">
+          <Header />
+          {children}
+        </main>
       </body>
     </html>
   );
