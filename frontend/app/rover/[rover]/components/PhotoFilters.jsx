@@ -23,16 +23,26 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-const PhotoFilters = () => {
+const PhotoFilters = ({ rover }) => {
   return (
     <div className="flex items-center justify-between">
       <h3>703 captures</h3>
 
       <div className="flex items-center justify-between gap-4">
-        <DateFilter />
-        <SolFilter />
-        <CameraFilter />
+        <DateFilter rover={rover} />
+        <SolFilter rover={rover} />
+        <CameraFilter cameras={rover?.cameras} />
         <ApplyButton />
       </div>
     </div>
@@ -41,9 +51,13 @@ const PhotoFilters = () => {
 
 export default PhotoFilters;
 
-function DateFilter() {
+function DateFilter({ rover }) {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(null);
+
+  React.useEffect(() => {
+    if (rover) setDate(new Date(rover?.max_date));
+  }, [rover]);
 
   return (
     <div className="flex flex-col gap-3">
@@ -63,6 +77,10 @@ function DateFilter() {
             mode="single"
             selected={date}
             captionLayout="dropdown"
+            disabled={{
+              before: new Date(rover?.landing_date),
+              after: new Date(rover?.max_date),
+            }}
             onSelect={(date) => {
               setDate(date);
               setOpen(false);
@@ -74,44 +92,34 @@ function DateFilter() {
   );
 }
 
-function SolFilter() {
+function SolFilter({ rover }) {
   return (
     <div className="flex items-center gap-2">
       <Input
         min={0}
+        max={rover?.max_sol}
         type="number"
-        placeholder="Enter a Sol"
+        placeholder="Enter sol"
         className="bg-secondary hover:bg-secondary/90 w-40 justify-between border-1 text-black placeholder:text-black"
       />
-      <BadgeInfo size={16} className="cursor-pointer" />
+      <HoverCard openDelay={300}>
+        <HoverCardTrigger>
+          <BadgeInfo size={16} className="cursor-pointer" />
+        </HoverCardTrigger>
+        <HoverCardContent side="top">
+          Photos are organized by the sol (Martian rotation or day) on which
+          they were taken, counting up from the rover's landing date. A photo
+          taken on Curiosity's 1000th Martian sol exploring Mars, for example,
+          will have a sol of 1000. <br /> <br />
+          Max sol for this rover is
+          <span className="font-semibold"> {rover?.max_sol}</span>.
+        </HoverCardContent>
+      </HoverCard>
     </div>
   );
 }
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-];
-
-export function CameraFilter() {
+export function CameraFilter({ cameras }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
@@ -125,7 +133,7 @@ export function CameraFilter() {
           className="bg-secondary hover:bg-secondary/90 w-40 justify-between border-1 font-normal text-black"
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
+            ? cameras.find((camera) => camera.name === value)?.name
             : "Select camera"}
           <ChevronDown className="opacity-50" />
         </Button>
@@ -136,23 +144,30 @@ export function CameraFilter() {
           <CommandList>
             <CommandEmpty>No camera found.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  {framework.label}
-                  <Check
-                    className={cn(
-                      "ml-auto",
-                      value === framework.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                </CommandItem>
+              {cameras?.map((camera) => (
+                <Tooltip key={camera.name}>
+                  <TooltipTrigger className="w-full">
+                    <CommandItem
+                      value={camera.name}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? "" : currentValue);
+                        setOpen(false);
+                      }}
+                    >
+                      {camera.name}
+                      <Check
+                        className={cn(
+                          "ml-auto",
+                          value === camera.name ? "opacity-100" : "opacity-0"
+                        )}
+                      />
+                    </CommandItem>
+                  </TooltipTrigger>
+
+                  <TooltipContent>
+                    <p>{camera.full_name}</p>
+                  </TooltipContent>
+                </Tooltip>
               ))}
             </CommandGroup>
           </CommandList>

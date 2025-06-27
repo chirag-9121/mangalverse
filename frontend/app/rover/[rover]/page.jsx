@@ -6,7 +6,7 @@ import RoverDetails from "./components/RoverDetails";
 import PhotoFilters from "./components/PhotoFilters";
 
 const RoverPage = ({ params }) => {
-  const [rover, setRover] = useState({});
+  const [rover, setRover] = useState(null);
 
   useEffect(() => {
     async function fetchRoverData() {
@@ -24,7 +24,7 @@ const RoverPage = ({ params }) => {
   return (
     <div className="flex h-full flex-col gap-10 px-16 pt-8">
       <RoverDetails rover={rover} />
-      <PhotoFilters />
+      <PhotoFilters rover={rover} />
     </div>
   );
 };

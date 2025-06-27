@@ -7,7 +7,7 @@ const RoverDetails = ({ rover }) => {
       {/* Details */}
       <div className="flex w-1/2 flex-col justify-between">
         <div className="flex items-center justify-between">
-          <h1>{rover.name}</h1>
+          <h1>{rover?.name}</h1>
           <div className="text-active border-active flex h-min items-center justify-center rounded-full border-1 px-2 py-1">
             <p className="small-p">Mission {rover?.status}</p>
           </div>
@@ -19,7 +19,7 @@ const RoverDetails = ({ rover }) => {
               <p className="text-secondary-foreground">Cameras</p>
               <p className="large-p">
                 {rover?.cameras && (
-                  <NumberTicker value={rover.cameras.length} />
+                  <NumberTicker value={rover?.cameras?.length} />
                 )}
               </p>
             </div>
