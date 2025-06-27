@@ -1,4 +1,4 @@
-import { Orbitron, Michroma } from "next/font/google";
+import { Orbitron, Michroma, Inter } from "next/font/google";
 import localfont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/header";
@@ -30,15 +30,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${conthrax.variable} ${michroma.variable} ${orbitron.variable} font-[family-name:var(--font-michroma)] antialiased h-screen`}
+        className={`${conthrax.variable} ${michroma.variable} ${orbitron.variable} h-screen antialiased`}
       >
-        <div className="fixed overflow-hidden h-full w-full z-[-1]">
+        {/* <div className="fixed z-[-1] h-full w-full overflow-hidden">
           <Particles />
-        </div>
-        <div className="meteors-wrapper fixed overflow-hidden h-[500px] w-full z-[-2]">
+        </div> */}
+        <div className="meteors-wrapper fixed z-[-2] h-[500px] w-full overflow-hidden">
           <Meteors maxDuration={5} />
         </div>
-        <main className="h-full py-2.5 px-4 sm:px-16 sm:py-5 lg:px-40">
+        <main className="h-full px-4 py-2.5 sm:px-16 sm:py-5 lg:px-40">
           <Header />
           {children}
         </main>

@@ -3,6 +3,7 @@
 import { getRoverData } from "@/api";
 import { useState, useEffect } from "react";
 import RoverDetails from "./components/RoverDetails";
+import PhotoFilters from "./components/PhotoFilters";
 
 const RoverPage = ({ params }) => {
   const [rover, setRover] = useState({});
@@ -21,8 +22,9 @@ const RoverPage = ({ params }) => {
   }, []);
 
   return (
-    <div className="h-full px-16 pt-8">
+    <div className="flex h-full flex-col gap-10 px-16 pt-8">
       <RoverDetails rover={rover} />
+      <PhotoFilters />
     </div>
   );
 };

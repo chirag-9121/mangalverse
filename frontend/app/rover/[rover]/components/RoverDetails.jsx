@@ -13,7 +13,7 @@ const RoverDetails = ({ rover }) => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between gap-8">
+        <div className="flex flex-col justify-between gap-4">
           <div className="flex gap-8">
             <div className="flex flex-col gap-2">
               <p className="text-secondary-foreground">Cameras</p>
