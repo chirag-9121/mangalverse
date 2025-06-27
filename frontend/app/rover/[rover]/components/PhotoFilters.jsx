@@ -36,15 +36,11 @@ import {
 
 const PhotoFilters = ({ rover }) => {
   return (
-    <div className="flex items-center justify-between">
-      <h3>703 captures</h3>
-
-      <div className="flex items-center justify-between gap-4">
-        <DateFilter rover={rover} />
-        <SolFilter rover={rover} />
-        <CameraFilter cameras={rover?.cameras} />
-        <ApplyButton />
-      </div>
+    <div className="flex items-center justify-start gap-4">
+      <DateFilter rover={rover} />
+      <SolFilter rover={rover} />
+      <CameraFilter cameras={rover?.cameras} />
+      <ApplyButton />
     </div>
   );
 };
@@ -66,7 +62,7 @@ function DateFilter({ rover }) {
           <Button
             variant="outline"
             id="date"
-            className="bg-secondary hover:bg-secondary/90 w-40 justify-between border-1 font-normal text-black"
+            className="bg-secondary hover:bg-secondary/95 h-7 w-36 justify-between border-1 py-0 font-normal text-black"
           >
             {date ? date.toLocaleDateString() : "Select date"}
             <CalendarIcon />
@@ -100,7 +96,7 @@ function SolFilter({ rover }) {
         max={rover?.max_sol}
         type="number"
         placeholder="Enter sol"
-        className="bg-secondary hover:bg-secondary/90 w-40 justify-between border-1 text-black placeholder:text-black"
+        className="bg-secondary hover:bg-secondary/95 h-7 w-36 justify-between border-1 py-0 text-black placeholder:text-black"
       />
       <HoverCard openDelay={300}>
         <HoverCardTrigger>
@@ -130,7 +126,7 @@ function CameraFilter({ cameras }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="bg-secondary hover:bg-secondary/90 w-40 justify-between border-1 font-normal text-black"
+          className="bg-secondary hover:bg-secondary/95 h-7 w-36 justify-between border-1 py-0 font-normal text-black"
         >
           {value
             ? cameras.find((camera) => camera.name === value)?.name

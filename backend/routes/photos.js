@@ -7,6 +7,7 @@ router.get("/:rover", async (req, res) => {
   try {
     const { rover } = req.params;
     const { sol, earth_date, camera, page } = req.query;
+    console.log(req.query);
 
     if (!sol && !earth_date) {
       return res.status(400).json({ error: "Either sol or date is required." });

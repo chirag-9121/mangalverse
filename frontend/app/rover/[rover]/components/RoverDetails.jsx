@@ -1,14 +1,22 @@
 import { NumberTicker } from "@/components/magicui/number-ticker";
+import { cn } from "@/lib/utils";
 
 const RoverDetails = ({ rover }) => {
   return (
     // Details and Image
-    <div className="flex h-2/6 justify-between gap-16">
+    <div className="flex h-[30vh] justify-between gap-16">
       {/* Details */}
       <div className="flex w-1/2 flex-col justify-between">
         <div className="flex items-center justify-between">
           <h1>{rover?.name}</h1>
-          <div className="text-active border-active flex h-min items-center justify-center rounded-full border-1 px-2 py-1">
+          <div
+            className={cn(
+              "flex h-min items-center justify-center rounded-full border-1 px-2 py-1",
+              rover?.status === "active"
+                ? "text-active border-active"
+                : "text-complete border-complete"
+            )}
+          >
             <p className="small-p">Mission {rover?.status}</p>
           </div>
         </div>

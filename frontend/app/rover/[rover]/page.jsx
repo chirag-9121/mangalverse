@@ -8,10 +8,7 @@ import RoverPhotos from "./components/RoverPhotos";
 
 const RoverPage = ({ params }) => {
   const [rover, setRover] = useState(null);
-  const [filterParams, setFilterParams] = useState({
-    sol: 1,
-    page: 1,
-  });
+  const [filterParams, setFilterParams] = useState({});
 
   useEffect(() => {
     async function fetchRoverData() {
@@ -20,6 +17,7 @@ const RoverPage = ({ params }) => {
         const data = await getRoverData(rover);
         console.log(data);
         setRover(data.rover);
+        setFilterParams({ earth_date: data.rover.max_date, page: 1 });
       } catch (err) {}
     }
     fetchRoverData();

@@ -6,6 +6,7 @@
 @theme inline {
   --font-michroma: var(--font-michroma);
   --font-conthrax: var(--font-conthrax);
+  --font-orbit: var(--font-orbit);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -40,6 +41,7 @@
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   --color-active: var(--active);
+  --color-complete: var(--complete);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -83,6 +85,7 @@
   --secondary: #d1e5b5;
   --secondary-foreground: #ababab;
   --active: #14b74d;
+  --complete: #85c8ff;
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
