@@ -37,6 +37,7 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-active: var(--active);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -69,6 +70,7 @@
   --primary-foreground: #dadada;
   --secondary: #d1e5b5;
   --secondary-foreground: #ababab;
+  --active: #14b74d;
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
@@ -133,6 +135,23 @@
   body {
     @apply bg-background text-foreground;
   }
+  h1 {
+    @apply text-xl sm:text-2xl lg:text-3xl font-bold font-[family-name:var(--font-conthrax)];
+  }
+  h2 {
+    @apply text-lg sm:text-xl lg:text-2xl font-[family-name:var(--font-conthrax)];
+  }
+  p {
+    @apply text-[10px] sm:text-xs;
+  }
+}
+
+.large-p {
+  @apply text-xs sm:text-sm;
+}
+
+.small-p {
+  @apply text-[8px] sm:text-[10px];
 }
 
 /* Meteor Fade out animation */

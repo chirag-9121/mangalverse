@@ -2,6 +2,7 @@
 
 import { getRoverData } from "@/api";
 import { useState, useEffect } from "react";
+import RoverDetails from "./components/RoverDetails";
 
 const RoverPage = ({ params }) => {
   const [rover, setRover] = useState({});
@@ -11,14 +12,19 @@ const RoverPage = ({ params }) => {
       try {
         const { rover } = await params;
         const data = await getRoverData(rover);
-        console.log(data.rover);
+        console.log(data);
+
         setRover(data.rover);
       } catch (err) {}
     }
     fetchRoverData();
   }, []);
 
-  return <div className="">Name: {rover.name}</div>;
+  return (
+    <div className="h-full px-16 pt-8">
+      <RoverDetails rover={rover} />
+    </div>
+  );
 };
 
 export default RoverPage;
