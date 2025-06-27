@@ -4,9 +4,14 @@ import { getRoverData } from "@/api";
 import { useState, useEffect } from "react";
 import RoverDetails from "./components/RoverDetails";
 import PhotoFilters from "./components/PhotoFilters";
+import RoverPhotos from "./components/RoverPhotos";
 
 const RoverPage = ({ params }) => {
   const [rover, setRover] = useState(null);
+  const [filterParams, setFilterParams] = useState({
+    sol: 1,
+    page: 1,
+  });
 
   useEffect(() => {
     async function fetchRoverData() {
@@ -14,7 +19,6 @@ const RoverPage = ({ params }) => {
         const { rover } = await params;
         const data = await getRoverData(rover);
         console.log(data);
-
         setRover(data.rover);
       } catch (err) {}
     }
@@ -24,7 +28,8 @@ const RoverPage = ({ params }) => {
   return (
     <div className="flex h-full flex-col gap-10 px-16 pt-8">
       <RoverDetails rover={rover} />
-      <PhotoFilters rover={rover} />
+      <PhotoFilters rover={rover} setFilterParams={setFilterParams} />
+      <RoverPhotos roverName={rover?.name} filterParams={filterParams} />
     </div>
   );
 };

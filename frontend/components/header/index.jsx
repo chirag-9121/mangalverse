@@ -7,6 +7,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { ROVERS } from "@/lib/constants";
+import { capitalizeFirstLetter } from "@/lib/utils";
 
 const Header = () => {
   return (
@@ -29,18 +31,11 @@ const Header = () => {
                 Rovers
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <NavigationMenuLink href="/rover/curiosity">
-                  Curiosity
-                </NavigationMenuLink>
-                <NavigationMenuLink href="/rover/opportunity">
-                  Opportunity
-                </NavigationMenuLink>
-                <NavigationMenuLink href="/rover/perseverance">
-                  Perseverance
-                </NavigationMenuLink>
-                <NavigationMenuLink href="/rover/spirit">
-                  Spirit
-                </NavigationMenuLink>
+                {ROVERS.map((rover) => (
+                  <NavigationMenuLink href={`/rover/${rover}`} key={rover}>
+                    {capitalizeFirstLetter(rover)}
+                  </NavigationMenuLink>
+                ))}
               </NavigationMenuContent>
             </NavigationMenuItem>
           </NavigationMenuList>
