@@ -2,7 +2,7 @@ import { Particles } from "@/components/magicui/particles";
 
 export default function Home() {
   return (
-    <section className="flex h-full flex-col items-center justify-around">
+    <section className="flex h-[90vh] flex-col items-center justify-around">
       <div className="fixed z-[-1] h-full w-full overflow-hidden">
         <Particles />
       </div>

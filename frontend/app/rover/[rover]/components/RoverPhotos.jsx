@@ -3,6 +3,8 @@
 import * as React from "react";
 import { getRoverPhotos } from "@/api";
 import Pagination from "./Pagination";
+import { BlurFade } from "@/components/magicui/blur-fade";
+import { Lens } from "@/components/magicui/lens";
 
 const RoverPhotos = ({ roverName, filterParams }) => {
   const [photos, setPhotos] = React.useState([]);
@@ -30,18 +32,25 @@ const RoverPhotos = ({ roverName, filterParams }) => {
       </div>
       <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
         {photos.map((photo) => (
-          <div key={photo.id} className="overflow-hidden rounded shadow">
-            <img
-              src={photo.img_src}
-              alt={`Mars photo ${photo.id}`}
-              width={300}
-              height={300}
-              className="h-48 w-full object-cover"
-            />
+          <BlurFade key={photo.id} className="overflow-hidden rounded shadow">
+            <Lens
+              zoomFactor={2}
+              lensSize={150}
+              isStatic={false}
+              ariaLabel="Zoom Area"
+            >
+              <img
+                src={photo.img_src}
+                alt={`Mars photo ${photo.id}`}
+                width={300}
+                height={300}
+                className="h-48 w-full object-cover"
+              />
+            </Lens>
             <p className="!font-orbit text-secondary-foreground pt-2">
               Sol {photo.sol} | {photo.earth_date} | {photo.camera.name}
             </p>
-          </div>
+          </BlurFade>
         ))}
       </div>
     </div>
