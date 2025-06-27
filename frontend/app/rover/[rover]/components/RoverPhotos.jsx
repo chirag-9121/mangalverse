@@ -6,24 +6,30 @@ import Pagination from "./Pagination";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { Lens } from "@/components/magicui/lens";
 
-const RoverPhotos = ({ roverName, filterParams }) => {
+const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
   const [photos, setPhotos] = React.useState([]);
   const [page, setPage] = React.useState(1);
 
   async function fetchPhotos(page) {
     try {
+      if (!filterParams.earth_date) throw new Error("Date is required.");
       const photos = await getRoverPhotos(roverName, {
         ...filterParams,
         page: page,
       });
       console.log(photos);
       setPhotos(photos.photos);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   React.useEffect(() => {
-    if (roverName && page > 0) fetchPhotos(page);
-  }, [roverName, page]);
+    if (roverName) {
+      console.log(filterParams);
+      fetchPhotos(page);
+    }
+  }, [roverName, page, isFilterApplied]);
 
   return (
     <div className="mt-[-16px] flex flex-col gap-4">

@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 import { CalendarIcon } from "lucide-react";
 import { Check, ChevronDown } from "lucide-react";
-import { BadgeInfo } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -14,7 +14,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Input } from "@/components/ui/input";
 import {
   Command,
   CommandEmpty,
@@ -23,31 +22,29 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const PhotoFilters = ({ rover }) => {
+const PhotoFilters = ({ rover, setFilterParams, setIsFilterApplied }) => {
   return (
     <div className="flex items-center justify-start gap-4">
-      <DateFilter rover={rover} />
-      <SolFilter rover={rover} />
-      <CameraFilter cameras={rover?.cameras} />
-      <ApplyButton />
+      <DateFilter rover={rover} setFilterParams={setFilterParams} />
+      <CameraFilter
+        cameras={rover?.cameras}
+        setFilterParams={setFilterParams}
+      />
+      <ApplyandResetButton setIsFilterApplied={setIsFilterApplied} />
     </div>
   );
 };
 
 export default PhotoFilters;
 
-function DateFilter({ rover }) {
+function DateFilter({ rover, setFilterParams }) {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(null);
 
@@ -79,6 +76,15 @@ function DateFilter({ rover }) {
             }}
             onSelect={(date) => {
               setDate(date);
+              setFilterParams((prev) => {
+                if (!date) {
+                  const { earth_date, ...rest } = prev;
+                  return rest;
+                }
+
+                const formatted = format(new Date(date), "yyyy-MM-dd");
+                return { ...prev, earth_date: formatted };
+              });
               setOpen(false);
             }}
           />
@@ -88,36 +94,19 @@ function DateFilter({ rover }) {
   );
 }
 
-function SolFilter({ rover }) {
-  return (
-    <div className="flex items-center gap-2">
-      <Input
-        min={0}
-        max={rover?.max_sol}
-        type="number"
-        placeholder="Enter sol"
-        className="bg-secondary hover:bg-secondary/95 h-7 w-36 justify-between border-1 py-0 text-black placeholder:text-black"
-      />
-      <HoverCard openDelay={300}>
-        <HoverCardTrigger>
-          <BadgeInfo size={16} className="cursor-pointer" />
-        </HoverCardTrigger>
-        <HoverCardContent side="top">
-          Photos are organized by the sol (Martian rotation or day) on which
-          they were taken, counting up from the rover's landing date. A photo
-          taken on Curiosity's 1000th Martian sol exploring Mars, for example,
-          will have a sol of 1000. <br /> <br />
-          Max sol for this rover is
-          <span className="font-semibold"> {rover?.max_sol}</span>.
-        </HoverCardContent>
-      </HoverCard>
-    </div>
-  );
-}
-
-function CameraFilter({ cameras }) {
+function CameraFilter({ cameras, setFilterParams }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+
+  React.useEffect(() => {
+    if (value) setFilterParams((prev) => ({ ...prev, camera: value }));
+    else {
+      setFilterParams((prev) => {
+        const { camera, ...rest } = prev;
+        return rest;
+      });
+    }
+  }, [value]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -173,12 +162,13 @@ function CameraFilter({ cameras }) {
   );
 }
 
-function ApplyButton() {
+function ApplyandResetButton({ setIsFilterApplied }) {
   return (
     <Button
       variant="ghost"
-      disabled
-      className="medium-p font-conthrax hover:bg-secondary h-min px-2 py-2 font-normal"
+      // disabled
+      onClick={() => setIsFilterApplied((prev) => !prev)}
+      className="medium-p text-secondary-foreground font-conthrax hover:text-foreground hover:border-foreground h-min border-1 border-transparent px-2 py-1 font-normal hover:scale-105 hover:bg-transparent"
     >
       Apply
     </Button>

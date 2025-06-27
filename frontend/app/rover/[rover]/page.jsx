@@ -9,6 +9,7 @@ import RoverPhotos from "./components/RoverPhotos";
 const RoverPage = ({ params }) => {
   const [rover, setRover] = useState(null);
   const [filterParams, setFilterParams] = useState({});
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
 
   useEffect(() => {
     async function fetchRoverData() {
@@ -26,8 +27,16 @@ const RoverPage = ({ params }) => {
   return (
     <div className="flex h-full flex-col gap-10 px-16 pt-8">
       <RoverDetails rover={rover} />
-      <PhotoFilters rover={rover} setFilterParams={setFilterParams} />
-      <RoverPhotos roverName={rover?.name} filterParams={filterParams} />
+      <PhotoFilters
+        rover={rover}
+        setFilterParams={setFilterParams}
+        setIsFilterApplied={setIsFilterApplied}
+      />
+      <RoverPhotos
+        roverName={rover?.name}
+        filterParams={filterParams}
+        isFilterApplied={isFilterApplied}
+      />
     </div>
   );
 };

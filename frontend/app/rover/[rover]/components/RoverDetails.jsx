@@ -1,6 +1,14 @@
+import { cn } from "@/lib/utils";
+
+import { BadgeInfo } from "lucide-react";
+
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { HyperText } from "@/components/magicui/hyper-text";
-import { cn } from "@/lib/utils";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 const RoverDetails = ({ rover }) => {
   return (
@@ -39,6 +47,27 @@ const RoverDetails = ({ rover }) => {
                 {rover?.total_photos && (
                   <NumberTicker value={rover?.total_photos} />
                 )}
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <p className="text-secondary-foreground">Max Sol</p>
+                <HoverCard openDelay={300}>
+                  <HoverCardTrigger>
+                    <BadgeInfo size={16} className="cursor-pointer" />
+                  </HoverCardTrigger>
+                  <HoverCardContent side="top">
+                    A sol is a Martian day — the duration of one full rotation
+                    of Mars. Sols are counted starting from the day a rover
+                    lands on the Martian surface. For example, a photo taken on
+                    Curiosity's 1000th sol means it was captured on the 1000th
+                    Martian day of its mission.
+                  </HoverCardContent>
+                </HoverCard>
+              </div>
+              <p className="large-p">
+                {rover?.max_sol && <NumberTicker value={rover?.max_sol} />}
               </p>
             </div>
           </div>

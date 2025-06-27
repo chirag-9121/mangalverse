@@ -6,15 +6,14 @@ const handleApiError = require("../utils/handleApiError");
 router.get("/:rover", async (req, res) => {
   try {
     const { rover } = req.params;
-    const { sol, earth_date, camera, page } = req.query;
+    const { earth_date, camera, page } = req.query;
     console.log(req.query);
 
-    if (!sol && !earth_date) {
-      return res.status(400).json({ error: "Either sol or date is required." });
+    if (!earth_date) {
+      return res.status(400).json({ error: "Date is required." });
     }
 
     const params = {};
-    if (sol) params.sol = sol;
     if (earth_date) params.earth_date = earth_date;
     if (camera) params.camera = camera;
     if (page) params.page = page;
