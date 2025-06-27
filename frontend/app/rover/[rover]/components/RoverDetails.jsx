@@ -1,4 +1,5 @@
 import { NumberTicker } from "@/components/magicui/number-ticker";
+import { HyperText } from "@/components/magicui/hyper-text";
 import { cn } from "@/lib/utils";
 
 const RoverDetails = ({ rover }) => {
@@ -45,17 +46,23 @@ const RoverDetails = ({ rover }) => {
           <div className="flex gap-8">
             <div className="flex flex-col gap-2">
               <p className="text-secondary-foreground">Launch Date</p>
-              <p className="large-p">{rover?.launch_date}</p>
+              {rover?.launch_date && (
+                <HyperText className="large-p">{rover?.launch_date}</HyperText>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
               <p className="text-secondary-foreground">Landing Date</p>
-              <p className="large-p">{rover?.landing_date}</p>
+              {rover?.launch_date && (
+                <HyperText className="large-p">{rover?.landing_date}</HyperText>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
               <p className="text-secondary-foreground">Last Photo Taken</p>
-              <p className="large-p">{rover?.max_date}</p>
+              {rover?.launch_date && (
+                <HyperText className="large-p">{rover?.max_date}</HyperText>
+              )}
             </div>
           </div>
         </div>
