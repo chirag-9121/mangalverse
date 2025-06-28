@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "http",
         hostname: "mars.jpl.nasa.gov",
       },
+      {
+        protocol: "https",
+        hostname: "apod.nasa.gov",
+      },
     ],
   },
 };
