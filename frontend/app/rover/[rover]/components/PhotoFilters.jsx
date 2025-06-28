@@ -74,6 +74,7 @@ function DateFilter({ rover, setFilterParams }) {
               before: new Date(rover?.landing_date),
               after: new Date(rover?.max_date),
             }}
+            defaultMonth={date}
             onSelect={(date) => {
               setDate(date);
               setFilterParams((prev) => {

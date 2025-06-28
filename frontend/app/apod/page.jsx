@@ -10,7 +10,6 @@ const ApodPage = () => {
     async function fetchApodData() {
       try {
         const data = await getApod();
-        console.log(data);
         setApodData(data);
       } catch (err) {}
     }

@@ -16,7 +16,6 @@ const RoverPage = ({ params }) => {
       try {
         const { rover } = await params;
         const data = await getRoverData(rover);
-        console.log(data);
         setRover(data.rover);
         setFilterParams({ earth_date: data.rover.max_date, page: 1 });
       } catch (err) {}

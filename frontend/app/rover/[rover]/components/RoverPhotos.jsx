@@ -5,6 +5,9 @@ import { getRoverPhotos } from "@/api";
 import Pagination from "./Pagination";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { Lens } from "@/components/magicui/lens";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
+import Image from "next/image";
 
 const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
   const [photos, setPhotos] = React.useState([]);
@@ -12,21 +15,25 @@ const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
 
   async function fetchPhotos(page) {
     try {
-      if (!filterParams.earth_date) throw new Error("Date is required.");
+      if (!filterParams.earth_date)
+        throw new Error("Date is required to apply filter");
       const photos = await getRoverPhotos(roverName, {
         ...filterParams,
         page: page,
       });
-      console.log(photos);
       setPhotos(photos.photos);
     } catch (err) {
-      console.log(err);
+      toast.error(err.message, {
+        style: {
+          background: "#ff6467",
+          color: "#ffffff",
+        },
+      });
     }
   }
 
   React.useEffect(() => {
     if (roverName) {
-      console.log(filterParams);
       fetchPhotos(page);
     }
   }, [roverName, page, isFilterApplied]);
@@ -34,8 +41,25 @@ const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
   return (
     <div className="mt-[-16px] flex flex-col gap-4">
       <div className="flex items-center justify-end">
-        <Pagination page={page} setPage={setPage} />
+        <Pagination
+          page={page}
+          setPage={setPage}
+          photosLength={photos?.length}
+        />
       </div>
+      {photos.length === 0 && (
+        <div className="mt-10 flex w-full flex-col items-center justify-center gap-10">
+          <h3 className="font-michroma text-primary-foreground">
+            You've hit the end, explorer! Try with a different set of filters.
+          </h3>
+          <Image
+            src="/not-found.svg"
+            alt="No photos found"
+            width={500}
+            height={500}
+          />
+        </div>
+      )}
       <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
         {photos.map((photo) => (
           <BlurFade key={photo.id} className="overflow-hidden rounded shadow">
@@ -59,6 +83,7 @@ const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
           </BlurFade>
         ))}
       </div>
+      <Toaster richColors />
     </div>
   );
 };
