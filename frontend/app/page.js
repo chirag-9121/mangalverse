@@ -5,7 +5,7 @@ import { ROVERS } from "@/lib/constants";
 
 export default function Home() {
   return (
-    <section className="flex h-[90vh] flex-col items-center justify-around">
+    <section className="flex h-[90vh] flex-col items-center justify-center gap-8 sm:justify-around">
       <div className="fixed z-[-1] h-full w-full overflow-hidden">
         <Particles />
       </div>

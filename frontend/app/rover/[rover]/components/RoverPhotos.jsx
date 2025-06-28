@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import Image from "next/image";
 import SpinningLoader from "@/components/ui/loader";
+import { CircleAlert } from "lucide-react";
 
 const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
   const [photos, setPhotos] = React.useState([]);
@@ -28,8 +29,9 @@ const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
     } catch (err) {
       toast.error(err.message, {
         style: {
-          background: "#ff6467",
+          background: "#fb2c361a",
           color: "#ffffff",
+          border: "1px solid #fb2c36",
         },
       });
     } finally {
@@ -38,10 +40,24 @@ const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
   }
 
   React.useEffect(() => {
-    if (roverName) {
+    if (roverName == "Curiosity" || roverName == "Perseverance") {
       fetchPhotos(page);
     }
   }, [roverName, page, isFilterApplied]);
+
+  if (roverName == "Spirit" || roverName == "Opportunity") {
+    return (
+      <div className="flex h-full flex-col gap-4">
+        <div className="bg-r bg-re flex w-full justify-center gap-2 rounded-xs border-1 border-amber-500 bg-amber-500/10 p-2 md:items-center">
+          <CircleAlert size={16} />
+          <p className="large-p !font-orbit">
+            The images for Spirit and Opportunity rovers are currently removed
+            from the NASA API
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-[-16px] flex flex-col gap-4">
@@ -89,7 +105,7 @@ const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
           </BlurFade>
         ))}
       </div>
-      <Toaster richColors />
+      <Toaster richColors position="top-center" className="!font-michroma" />
     </div>
   );
 };
