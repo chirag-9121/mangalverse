@@ -13,13 +13,13 @@ const conthrax = localfont({
 const michroma = Michroma({
   variable: "--font-michroma",
   weight: "400",
-  // subsets: ["latin"],
+  subsets: ["latin"],
 });
 
 const orbit = Orbit({
   variable: "--font-orbit",
   weight: "400",
-  // subsets: ["latin"],
+  subsets: ["latin"],
 });
 
 export const metadata = {
