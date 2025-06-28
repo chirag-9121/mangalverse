@@ -55,7 +55,7 @@ const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
       {isFetching && <SpinningLoader />}
       {!isFetching && photos.length === 0 && (
         <div className="mt-10 flex w-full flex-col items-center justify-center gap-10">
-          <h3 className="font-michroma text-primary-foreground">
+          <h3 className="font-michroma text-primary-foreground text-center">
             You've hit the end, explorer! Try with a different set of filters.
           </h3>
           <Image
@@ -66,7 +66,7 @@ const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
           />
         </div>
       )}
-      <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
         {photos.map((photo) => (
           <BlurFade key={photo.id} className="overflow-hidden rounded shadow">
             <Lens
@@ -80,7 +80,7 @@ const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
                 alt={`Mars photo ${photo.id}`}
                 width={300}
                 height={300}
-                className="h-48 w-full object-cover"
+                className="h-40 w-full object-cover md:h-48"
               />
             </Lens>
             <p className="!font-orbit text-secondary-foreground pt-2">

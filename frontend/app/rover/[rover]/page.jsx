@@ -24,7 +24,7 @@ const RoverPage = ({ params }) => {
   }, []);
 
   return (
-    <div className="flex h-full flex-col gap-10 px-16 pt-8">
+    <div className="flex h-full flex-col gap-10 pt-8 sm:px-8 lg:px-16">
       <RoverDetails rover={rover} />
       <PhotoFilters
         rover={rover}

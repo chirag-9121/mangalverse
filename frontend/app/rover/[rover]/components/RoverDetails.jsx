@@ -17,9 +17,9 @@ const RoverDetails = ({ rover }) => {
   const roverData = ROVERS.find((r) => r.name === rover?.name);
   return (
     // Details and Image
-    <div className="flex h-[30vh] justify-between gap-16">
+    <div className="flex flex-col-reverse justify-between gap-4 md:min-h-[30vh] md:flex-row md:gap-16">
       {/* Details */}
-      <div className="flex w-1/2 flex-col justify-between">
+      <div className="flex w-full flex-col justify-between gap-4 md:w-1/2">
         <div className="flex items-center justify-between">
           {rover?.name ? (
             <h1>{rover.name}</h1>
@@ -41,7 +41,7 @@ const RoverDetails = ({ rover }) => {
         </div>
 
         <div className="flex flex-col justify-between gap-4">
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-4 md:gap-8">
             <div className="flex flex-col gap-2">
               <p className="text-secondary-foreground">Cameras</p>
               {rover?.cameras ? (
@@ -90,7 +90,7 @@ const RoverDetails = ({ rover }) => {
             </div>
           </div>
 
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-4 md:gap-8">
             <div className="flex flex-col gap-2">
               <p className="text-secondary-foreground">Launch Date</p>
               {rover?.launch_date ? (
@@ -122,7 +122,7 @@ const RoverDetails = ({ rover }) => {
       </div>
 
       {/* Image */}
-      <div className="bg-primary h-full w-2/5 rounded-md">
+      <div className="bg-primary h-full min-h-[200px] w-full rounded-md md:w-2/5">
         <div className="bg-primary flex h-full w-full items-center justify-center rounded-md p-4">
           {roverData && (
             <Image

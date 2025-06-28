@@ -59,7 +59,7 @@ function DateFilter({ rover, setFilterParams }) {
           <Button
             variant="outline"
             id="date"
-            className="bg-secondary hover:bg-secondary/95 h-7 w-36 justify-between border-1 py-0 font-normal text-black"
+            className="bg-secondary hover:bg-secondary/95 h-7 w-28 justify-between border-1 py-0 text-xs font-normal text-black md:w-36 md:text-sm"
           >
             {date ? date.toLocaleDateString() : "Select date"}
             <CalendarIcon />
@@ -116,7 +116,7 @@ function CameraFilter({ cameras, setFilterParams }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="bg-secondary hover:bg-secondary/95 h-7 w-36 justify-between border-1 py-0 font-normal text-black"
+          className="bg-secondary hover:bg-secondary/95 h-7 w-30 justify-between border-1 py-0 text-xs font-normal text-black md:w-36 md:text-sm"
         >
           {value
             ? cameras.find((camera) => camera.name === value)?.name
