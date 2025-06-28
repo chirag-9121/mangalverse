@@ -8,12 +8,15 @@ import { Lens } from "@/components/magicui/lens";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import Image from "next/image";
+import SpinningLoader from "@/components/ui/loader";
 
 const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
   const [photos, setPhotos] = React.useState([]);
   const [page, setPage] = React.useState(1);
+  const [isFetching, setIsFetching] = React.useState(true);
 
   async function fetchPhotos(page) {
+    setIsFetching(true);
     try {
       if (!filterParams.earth_date)
         throw new Error("Date is required to apply filter");
@@ -29,6 +32,8 @@ const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
           color: "#ffffff",
         },
       });
+    } finally {
+      setIsFetching(false);
     }
   }
 
@@ -47,7 +52,8 @@ const RoverPhotos = ({ roverName, filterParams, isFilterApplied }) => {
           photosLength={photos?.length}
         />
       </div>
-      {photos.length === 0 && (
+      {isFetching && <SpinningLoader />}
+      {!isFetching && photos.length === 0 && (
         <div className="mt-10 flex w-full flex-col items-center justify-center gap-10">
           <h3 className="font-michroma text-primary-foreground">
             You've hit the end, explorer! Try with a different set of filters.
