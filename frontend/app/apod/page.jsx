@@ -2,22 +2,29 @@
 
 import { getApod } from "@/api";
 import * as React from "react";
+import SpinningLoader from "@/components/ui/loader";
 
 const ApodPage = () => {
   const [apodData, setApodData] = React.useState(null);
+  const [isFetching, setIsFetching] = React.useState(true);
 
   React.useEffect(() => {
     async function fetchApodData() {
+      setIsFetching(true);
       try {
         const data = await getApod();
         setApodData(data);
-      } catch (err) {}
+      } catch (err) {
+      } finally {
+        setIsFetching(false);
+      }
     }
     fetchApodData();
   }, []);
   return (
     <div className="mb-6 flex h-full flex-col gap-6 pt-6 sm:gap-10 sm:px-32 sm:pt-8">
       <h1>Astronomy Picture of the Day</h1>
+      {isFetching && <SpinningLoader />}
       {apodData && (
         <div className="flex flex-col gap-6 sm:gap-10">
           <div className="flex flex-col gap-2 sm:gap-4">

@@ -10,6 +10,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ROVERS } from "@/lib/constants";
 
 const RoverDetails = ({ rover }) => {
@@ -20,37 +21,47 @@ const RoverDetails = ({ rover }) => {
       {/* Details */}
       <div className="flex w-1/2 flex-col justify-between">
         <div className="flex items-center justify-between">
-          <h1>{rover?.name}</h1>
-          <div
-            className={cn(
-              "flex h-min items-center justify-center rounded-full border-1 px-2 py-1",
-              rover?.status === "active"
-                ? "text-active border-active"
-                : "text-complete border-complete"
-            )}
-          >
-            <p className="small-p">Mission {rover?.status}</p>
-          </div>
+          {rover?.name ? (
+            <h1>{rover.name}</h1>
+          ) : (
+            <Skeleton className="h-8 w-[200px]" />
+          )}
+          {rover?.status && (
+            <div
+              className={cn(
+                "flex h-min items-center justify-center rounded-full border-1 px-2 py-1",
+                rover?.status === "active"
+                  ? "text-active border-active"
+                  : "text-complete border-complete"
+              )}
+            >
+              <p className="small-p">Mission {rover.status}</p>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col justify-between gap-4">
           <div className="flex gap-8">
             <div className="flex flex-col gap-2">
               <p className="text-secondary-foreground">Cameras</p>
-              <p className="large-p">
-                {rover?.cameras && (
-                  <NumberTicker value={rover?.cameras?.length} />
-                )}
-              </p>
+              {rover?.cameras ? (
+                <p className="large-p">
+                  <NumberTicker value={rover?.cameras?.length} />{" "}
+                </p>
+              ) : (
+                <Skeleton className="h-5 w-full" />
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
               <p className="text-secondary-foreground">Total Photos</p>
-              <p className="large-p">
-                {rover?.total_photos && (
-                  <NumberTicker value={rover?.total_photos} />
-                )}
-              </p>
+              {rover?.total_photos ? (
+                <p className="large-p">
+                  <NumberTicker value={rover.total_photos} />
+                </p>
+              ) : (
+                <Skeleton className="h-5 w-full" />
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -69,31 +80,41 @@ const RoverDetails = ({ rover }) => {
                   </HoverCardContent>
                 </HoverCard>
               </div>
-              <p className="large-p">
-                {rover?.max_sol && <NumberTicker value={rover?.max_sol} />}
-              </p>
+              {rover?.max_sol ? (
+                <p className="large-p">
+                  {rover?.max_sol && <NumberTicker value={rover?.max_sol} />}
+                </p>
+              ) : (
+                <Skeleton className="h-5 w-full" />
+              )}
             </div>
           </div>
 
           <div className="flex gap-8">
             <div className="flex flex-col gap-2">
               <p className="text-secondary-foreground">Launch Date</p>
-              {rover?.launch_date && (
+              {rover?.launch_date ? (
                 <HyperText className="large-p">{rover?.launch_date}</HyperText>
+              ) : (
+                <Skeleton className="h-5 w-full" />
               )}
             </div>
 
             <div className="flex flex-col gap-2">
               <p className="text-secondary-foreground">Landing Date</p>
-              {rover?.launch_date && (
+              {rover?.launch_date ? (
                 <HyperText className="large-p">{rover?.landing_date}</HyperText>
+              ) : (
+                <Skeleton className="h-5 w-full" />
               )}
             </div>
 
             <div className="flex flex-col gap-2">
               <p className="text-secondary-foreground">Last Photo Taken</p>
-              {rover?.launch_date && (
+              {rover?.launch_date ? (
                 <HyperText className="large-p">{rover?.max_date}</HyperText>
+              ) : (
+                <Skeleton className="h-5 w-full" />
               )}
             </div>
           </div>
