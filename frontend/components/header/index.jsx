@@ -19,12 +19,12 @@ const Header = () => {
         </div>
       </Link>
 
-      <div className="[&>a]:text-secondary-foreground [&>a]:hover:text-primary-foreground flex items-center gap-5 sm:gap-10 [&>a]:hover:underline">
+      <div className="[&>a]:text-secondary-foreground [&>a]:hover:text-primary-foreground flex items-center gap-4 sm:gap-10 [&>a]:hover:underline">
         <Link href="/">
           <p>Home</p>
         </Link>
 
-        <NavigationMenu delayDuration={100}>
+        <NavigationMenu delayDuration={100} className="mb-0.5">
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger className="text-secondary-foreground hover:text-primary-foreground">
@@ -32,8 +32,8 @@ const Header = () => {
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 {ROVERS.map((rover) => (
-                  <NavigationMenuLink href={`/rover/${rover}`} key={rover}>
-                    {capitalizeFirstLetter(rover)}
+                  <NavigationMenuLink href={rover.link} key={rover.name}>
+                    {capitalizeFirstLetter(rover.name)}
                   </NavigationMenuLink>
                 ))}
               </NavigationMenuContent>

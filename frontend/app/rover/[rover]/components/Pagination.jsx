@@ -6,14 +6,14 @@ const Pagination = ({ page, setPage }) => {
       <Button
         disabled={page <= 1}
         onClick={() => setPage((prev) => prev - 1)}
-        className="hover:bg-accent hover:text-background h-min rounded border bg-transparent px-4 py-1 disabled:opacity-50"
+        className="medium-p hover:bg-accent hover:text-background h-min rounded border bg-transparent px-4 py-1 disabled:opacity-50"
       >
         Prev
       </Button>
-      <span className="px-4">{page}</span>
+      <span className="font-conthrax px-4">{page}</span>
       <Button
         onClick={() => setPage((prev) => prev + 1)}
-        className="hover:bg-accent hover:text-background h-min rounded border bg-transparent px-4 py-1"
+        className="medium-p hover:bg-accent hover:text-background h-min rounded border bg-transparent px-4 py-1"
       >
         Next
       </Button>

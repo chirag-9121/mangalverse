@@ -29,6 +29,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <link rel="icon" href="/mars.ico" sizes="any" />
       <body
         className={`${conthrax.variable} ${michroma.variable} ${orbit.variable} h-screen antialiased`}
       >

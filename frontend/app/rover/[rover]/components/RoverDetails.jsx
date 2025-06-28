@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 
 import { BadgeInfo } from "lucide-react";
 
+import Image from "next/image";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { HyperText } from "@/components/magicui/hyper-text";
 import {
@@ -9,8 +10,10 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { ROVERS } from "@/lib/constants";
 
 const RoverDetails = ({ rover }) => {
+  const roverData = ROVERS.find((r) => r.name === rover?.name);
   return (
     // Details and Image
     <div className="flex h-[30vh] justify-between gap-16">
@@ -98,7 +101,18 @@ const RoverDetails = ({ rover }) => {
       </div>
 
       {/* Image */}
-      <div className="bg-primary h-full w-2/5 rounded-md"></div>
+      <div className="bg-primary h-full w-2/5 rounded-md">
+        <div className="bg-primary flex h-full w-full items-center justify-center rounded-md p-4">
+          {roverData && (
+            <Image
+              src={roverData.src}
+              alt={roverData.name}
+              width={300}
+              height={300}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 };
